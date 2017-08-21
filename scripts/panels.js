@@ -22,7 +22,6 @@ function handleTransitionEnd(e) {
 }
 
 function transitionPanelText(panel) {
-    console.log("Transition text for panel:", panel)
     let $panel = $(panel)
 
     //Conditional Context: 
@@ -59,10 +58,11 @@ function transitionOutPanelText(panel) {
 
 function setPanelsBackground() {
     let images = ["panel1.jpg", "panel2.jpg", "panel3.jpg", "panel4.jpg", "panel5.jpg", "panel6.jpg"]
-    console.log("AAYYYAYAYAYA")
-    panels.each((i, panel) => {
+
+    $panels.each((i, panel) => {
         let background = images[i]
         $(panel).css("background", `url(/images/${background}) center no-repeat`)
+        $(panel).css("flexGrow", NORMAL_AMOUNT)
     })
 }
 
@@ -81,11 +81,9 @@ function shouldPanelOpen(panel) {
 }
 
 function openPanel(panel) {
-    console.log("Opening panel", $(panel))
     $(panel).css("flexGrow", EXPAND_AMOUNT)
 }
 
 function closePanel(panel) {    
-    console.log("Closing panel", $(panel))
     $(panel).css("flexGrow", NORMAL_AMOUNT)
 }
