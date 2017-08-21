@@ -16,34 +16,26 @@ function setPanelBackgroundColors() {
     })
 }
 
-function handleClick() {
-    panels.click(e => {
-        console.log("target:", e.currentTarget)
-        let thisPanel = $(e.currentTarget)
-        let thisTopMessage = thisPanel.find(".top-message")
-        let thisMiddleMessage = thisPanel.find(".middle-message")
-        let thisBottomMessage = thisPanel.find(".bottom-message")
+function setClickHandler() {
+    $panels.click(e => {
+        let $panel = $(e.currentTarget)
 
-        let notThisPanel = panels.filter((i, panel) => panel !== e.currentTarget)
-        console.log(thisPanel, notThisPanel)
-        notThisPanel.css("flexBasis", NORMAL_AMOUNT)   
-
-        //Set timeout allows the open panel to close before opening the next one
-        setTimeout(() => {
-            if(thisPanel.css("flexBasis") == EXPAND_AMOUNT) {
-                thisTopMessage.css("top", "-100%")
-                thisBottomMessage.css("top", "100%")
-                thisPanel.css("flexBasis", NORMAL_AMOUNT)
-            } else {
-                thisTopMessage.css("top", "0")
-                thisBottomMessage.css("top", "0")
-                thisPanel.css("flexBasis", EXPAND_AMOUNT)
-            }
-        }, 300)
+        shouldPanelOpen($panel) ? openPanel($panel) : closePanel($panel)
     })
 }
 
-function closePanel() {
-    let openPanel = panels.filter((i, panel) => $(panel).css("flexBasis") === EXPAND_AMOUNT)
-    openPanel.css("flexBasis", NORMAL_AMOUNT)
+function shouldPanelOpen(panel) {
+    let $panel = $(panel)
+
+    return $panel.css("flexGrow") == NORMAL_AMOUNT ? true : false
+}
+
+function openPanel(panel) {
+    console.log("Opening panel", $(panel))
+    $(panel).css("flexGrow", EXPAND_AMOUNT)
+}
+
+function closePanel(panel) {    
+    console.log("Closing panel", $(panel))
+    $(panel).css("flexGrow", NORMAL_AMOUNT)
 }
